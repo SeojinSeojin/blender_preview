@@ -4,6 +4,7 @@
 
 ### Requirements
 
-1. Hiro Marker
-   ![image](https://user-images.githubusercontent.com/48249505/109534758-05f31d00-7aff-11eb-9270-5878b6d993dc.png)
+1. Marker
+   ![hoam](https://user-images.githubusercontent.com/48249505/109741737-05e34200-7c11-11eb-8e6b-52e9cbcfa6f3.png)
+
 2. Web Cam
