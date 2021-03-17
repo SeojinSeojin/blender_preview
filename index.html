@@ -10,22 +10,16 @@
     <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.0/dist/aframe-extras.min.js"></script>
     <script>
-        AFRAME.registerComponent('markerhandler', {
-
+        AFRAME.registerComponent('amarker', {
             init: function() {
-                const animatedMarker = document.querySelector("#animated-marker");
-                const aEntity = document.querySelector("#box-asset");
-                console.log("aframe markerhandler")
-                animatedMarker.addEventListener('click', function(ev, target) {
-                    console.log("clicked")
-                    const intersectedElement = ev && ev.detail && ev.detail.intersectedEl;
-                    if (aEntity && intersectedElement === aEntity) {
-                        const box_asset = document.querySelector("#box-asset");
-                        if (box_asset.hasAttribute("animation-mixer")) {
-                            box_asset.removeAttribute("animation-mixer");
-                        }
-                        box_asset.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
+                const markerA = document.querySelector("a-marker");
+                const entityA = markerA.getElementsByTagName("a-asset")[0];
+                entityA.addEventListener('click', function(ev, target) {
+                    console.log("clicked");
+                    if (entityA.hasAttribute("animation-mixer")) {
+                        entityA.removeAttribute("animation-mixer");
                     }
+                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
                 });
             }
         });
@@ -35,13 +29,50 @@
 <body style="margin: 0px; overflow: hidden">
     <a-scene embedded arjs>
         <a-assets>
-            <a-asset-items id="box" src="./A1.gltf"></a-asset-items>
+            <a-asset-items id="A1" src="./models/A1.gltf"></a-asset-items>
+            <a-asset-items id="A2" src="./models/A2.gltf"></a-asset-items>
+            <a-asset-items id="A3" src="./models/A3.gltf"></a-asset-items>
+            <a-asset-items id="A4" src="./models/A4.gltf"></a-asset-items>
+            <a-asset-items id="A5" src="./models/A5.gltf"></a-asset-items>
+            <a-asset-items id="A6" src="./models/A6.gltf"></a-asset-items>
+            <a-asset-items id="B1" src="./models/B1.gltf"></a-asset-items>
+            <a-asset-items id="C1" src="./models/C1.gltf"></a-asset-items>
+            <a-asset-items id="C2" src="./models/C2.gltf"></a-asset-items>
+            <a-asset-items id="C3" src="./models/C3.gltf"></a-asset-items>
+            <a-asset-items id="C4" src="./models/C4.gltf"></a-asset-items>
+            <a-asset-items id="C5" src="./models/C5.gltf"></a-asset-items>
+            <a-asset-items id="C6" src="./models/C6.gltf"></a-asset-items>
+            <a-asset-items id="C7" src="./models/C7.gltf"></a-asset-items>
+            <a-asset-items id="C8" src="./models/C8.gltf"></a-asset-items>
+            <a-asset-items id="C9" src="./models/C9.gltf"></a-asset-items>
+            <a-asset-items id="D1" src="./models/D1.gltf"></a-asset-items>
+            <a-asset-items id="D2" src="./models/D2.gltf"></a-asset-items>
+            <a-asset-items id="D3" src="./models/D3.gltf"></a-asset-items>
+            <a-asset-items id="D4" src="./models/D4.gltf"></a-asset-items>
+            <a-asset-items id="D5" src="./models/D5.gltf"></a-asset-items>
+            <a-asset-items id="D6" src="./models/D6.gltf"></a-asset-items>
+            <a-asset-items id="E1" src="./models/E1.gltf"></a-asset-items>
+            <a-asset-items id="F1" src="./models/F1.gltf"></a-asset-items>
+            <a-asset-items id="F2" src="./models/F2.gltf"></a-asset-items>
         </a-assets>
-        <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker" preset="custom" type="pattern" url="./hoam.patt">
-            <a-entity id="box-asset" gltf-model="#box"></a-entity>
+        <a-marker amarker emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/A.patt">
+            <a-asset></a-asset>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+    <script>
+        const init = () => {
+            const markerA = document.querySelector("a-marker");
+            const a_assets = ["A1", "A2", "A3", "A4", "A5", "A6"];
+            const randIdx = Math.floor(Math.random() * a_assets.length);
+            const randAsset = a_assets[randIdx];
+            console.log(`init called, ${randAsset} selected`)
+            const entityA = markerA.getElementsByTagName("a-asset")[0];
+            entityA.setAttribute("id", `ae${randAsset}`);
+            entityA.setAttribute("gltf-model", `#${randAsset}`);
+        }
+        init()
+    </script>
 </body>
 
 </html>
