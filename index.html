@@ -13,7 +13,7 @@
         AFRAME.registerComponent('amarker', {
             init: function() {
                 const markerA = document.querySelector("a-marker");
-                const entityA = markerA.getElementsByTagName("a-asset")[0];
+                const entityA = markerA.getElementsByTagName("a-entity")[0];
                 entityA.addEventListener('click', function(ev, target) {
                     console.log("clicked");
                     if (entityA.hasAttribute("animation-mixer")) {
@@ -56,7 +56,7 @@
             <a-asset-items id="F2" src="./models/F2.gltf"></a-asset-items>
         </a-assets>
         <a-marker amarker emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/A.patt">
-            <a-asset></a-asset>
+            <a-entity></a-entity>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
@@ -67,7 +67,7 @@
             const randIdx = Math.floor(Math.random() * a_assets.length);
             const randAsset = a_assets[randIdx];
             console.log(`init called, ${randAsset} selected`)
-            const entityA = markerA.getElementsByTagName("a-asset")[0];
+            const entityA = markerA.getElementsByTagName("a-entity")[0];
             entityA.setAttribute("id", `ae${randAsset}`);
             entityA.setAttribute("gltf-model", `#${randAsset}`);
         }
