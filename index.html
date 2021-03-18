@@ -12,7 +12,59 @@
     <script>
         AFRAME.registerComponent('amarker', {
             init: function() {
-                const markerA = document.querySelector("a-marker");
+                const markerA = document.querySelector("#AmarkerA");
+                const entityA = markerA.getElementsByTagName("a-entity")[0];
+                entityA.addEventListener('click', function(ev, target) {
+                    console.log("clicked");
+                    if (entityA.hasAttribute("animation-mixer")) {
+                        entityA.removeAttribute("animation-mixer");
+                    }
+                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
+                });
+            }
+        });
+        AFRAME.registerComponent('bmarker', {
+            init: function() {
+                const markerA = document.querySelector("#BmarkerB");
+                const entityA = markerA.getElementsByTagName("a-entity")[0];
+                entityA.addEventListener('click', function(ev, target) {
+                    console.log("clicked");
+                    if (entityA.hasAttribute("animation-mixer")) {
+                        entityA.removeAttribute("animation-mixer");
+                    }
+                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
+                });
+            }
+        });
+        AFRAME.registerComponent('cmarker', {
+            init: function() {
+                const markerA = document.querySelector("#CmarkerC");
+                const entityA = markerA.getElementsByTagName("a-entity")[0];
+                entityA.addEventListener('click', function(ev, target) {
+                    console.log("clicked");
+                    if (entityA.hasAttribute("animation-mixer")) {
+                        entityA.removeAttribute("animation-mixer");
+                    }
+                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
+                });
+            }
+        });
+        AFRAME.registerComponent('dmarker', {
+            init: function() {
+                const markerA = document.querySelector("#DmarkerD");
+                const entityA = markerA.getElementsByTagName("a-entity")[0];
+                entityA.addEventListener('click', function(ev, target) {
+                    console.log("clicked");
+                    if (entityA.hasAttribute("animation-mixer")) {
+                        entityA.removeAttribute("animation-mixer");
+                    }
+                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
+                });
+            }
+        });
+        AFRAME.registerComponent('fmarker', {
+            init: function() {
+                const markerA = document.querySelector("#FmarkerF");
                 const entityA = markerA.getElementsByTagName("a-entity")[0];
                 entityA.addEventListener('click', function(ev, target) {
                     console.log("clicked");
@@ -55,23 +107,53 @@
             <a-asset-items id="F1" src="./models/F1.gltf"></a-asset-items>
             <a-asset-items id="F2" src="./models/F2.gltf"></a-asset-items>
         </a-assets>
-        <a-marker amarker emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/A.patt">
+        <a-marker amarker id="AmarkerA" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/A.patt">
+            <a-entity></a-entity>
+        </a-marker>
+        <a-marker bmarker id="BmarkerB" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/B.patt">
+            <a-entity></a-entity>
+        </a-marker>
+        <a-marker cmarker id="CmarkerC" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/C.patt">
+            <a-entity></a-entity>
+        </a-marker>
+        <a-marker dmarker id="DmarkerD" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/D.patt">
+            <a-entity></a-entity>
+        </a-marker>
+        <a-marker fmarker id="FmarkerF" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/F.patt">
             <a-entity></a-entity>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
     <script>
+        const assets = {
+            "A": ["A1", "A2", "A3", "A4", "A5", "A6"],
+            "B": ["B1"],
+            "C": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"],
+            "D": ["D1", "D2", "D3", "D4", "D5", "D6"],
+            "E": ["E1"],
+            "F": ["F1", "F2"]
+        };
         const init = () => {
-            const markerA = document.querySelector("a-marker");
-            const a_assets = ["A1", "A2", "A3", "A4", "A5", "A6"];
-            const randIdx = Math.floor(Math.random() * a_assets.length);
-            const randAsset = a_assets[randIdx];
-            console.log(`init called, ${randAsset} selected`)
-            const entityA = markerA.getElementsByTagName("a-entity")[0];
-            entityA.setAttribute("id", `ae${randAsset}`);
-            entityA.setAttribute("gltf-model", `#${randAsset}`);
-        }
-        init()
+            const markers = document.querySelectorAll("a-marker");
+            markers.forEach((marker) => {
+                marker.addEventListener("markerFound", (e) => {
+                    console.log("marker is found", marker.id);
+                    const marker_assets = assets[marker.id[0]];
+                    const randIdx = Math.floor(Math.random() * marker_assets.length);
+                    const randAsset = marker_assets[randIdx];
+                    const entity = marker.getElementsByTagName("a-entity")[0];
+                    entity.setAttribute("id", `ae${randAsset}`);
+                    entity.setAttribute("gltf-model", `#${randAsset}`);
+                })
+                marker.addEventListener("markerLost", (e) => {
+                    console.log("marker is lost", marker.id);
+                    const entity = marker.getElementsByTagName("a-entity")[0];
+                    entity.removeAttribute("id");
+                    entity.removeAttribute("gltf-model");
+                })
+            });
+        };
+        init();
     </script>
 </body>
 
