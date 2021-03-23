@@ -17,7 +17,12 @@
                     const markerA = document.querySelector(id);
                     const entityA = markerA.getElementsByTagName("a-entity")[0];
                     entityA.addEventListener("click", function(ev, target) {
+                        console.log(entityA)
+                        const mrID = entityA.id.slice(2, 4)
                         console.log("clicked");
+                        console.log(`${mrID} is found`);
+                        /* 저장 이벤트를 줄 땐 여기서 mrID를 로컬스토리지에 저장하는 방식 */
+                        /* 로컬스토리지에 이미 저장되어 있으면 패스, 없으면 저장 */
                         if (entityA.hasAttribute("animation-mixer")) {
                             entityA.removeAttribute("animation-mixer");
                         }
@@ -35,6 +40,7 @@
             ["bmarker", "#BmarkerB"],
             ["cmarker", "#CmarkerC"],
             ["dmarker", "#DmarkerD"],
+            ["emarker", "#EmarkerE"],
             ["fmarker", "#FmarkerF"]
         ]
         markers.forEach((marker) => {
@@ -72,19 +78,22 @@
             <a-asset-items id="F1" src="./models/F1.gltf"></a-asset-items>
             <a-asset-items id="F2" src="./models/F2.gltf"></a-asset-items>
         </a-assets>
-        <a-marker amarker id="AmarkerA" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/A.patt">
+        <a-marker amarker id="AmarkerA" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternA.patt">
             <a-entity></a-entity>
         </a-marker>
-        <a-marker bmarker id="BmarkerB" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/B.patt">
+        <a-marker bmarker id="BmarkerB" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternB.patt">
             <a-entity></a-entity>
         </a-marker>
-        <a-marker cmarker id="CmarkerC" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/C.patt">
+        <a-marker cmarker id="CmarkerC" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternC.patt">
             <a-entity></a-entity>
         </a-marker>
-        <a-marker dmarker id="DmarkerD" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/D.patt">
+        <a-marker dmarker id="DmarkerD" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternD.patt">
             <a-entity></a-entity>
         </a-marker>
-        <a-marker fmarker id="FmarkerF" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/F.patt">
+        <a-marker emarker id="EmarkerE" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternE.patt">
+            <a-entity></a-entity>
+        </a-marker>
+        <a-marker fmarker id="FmarkerF" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternF.patt">
             <a-entity></a-entity>
         </a-marker>
         <a-entity camera></a-entity>
