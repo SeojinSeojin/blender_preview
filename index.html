@@ -17,19 +17,23 @@
                     const markerA = document.querySelector(id);
                     const entityA = markerA.getElementsByTagName("a-entity")[0];
                     entityA.addEventListener("click", function(ev, target) {
-                        console.log(entityA)
-                        const mrID = entityA.id.slice(2, 4)
-                        console.log("clicked");
-                        console.log(`${mrID} is found`);
-                        /* 저장 이벤트를 줄 땐 여기서 mrID를 로컬스토리지에 저장하는 방식 */
-                        /* 로컬스토리지에 이미 저장되어 있으면 패스, 없으면 저장 */
-                        if (entityA.hasAttribute("animation-mixer")) {
-                            entityA.removeAttribute("animation-mixer");
+                        if (entityA.getAttribute("state") === "true") {
+                            console.log(entityA);
+                            const mrID = entityA.id.slice(2, 4)
+                            console.log("clicked");
+                            console.log(`${mrID} is found`);
+                            /* 저장 이벤트를 줄 땐 여기서 mrID를 로컬스토리지에 저장하는 방식 */
+                            /* 로컬스토리지에 이미 저장되어 있으면 패스, 없으면 저장 */
+                            if (entityA.hasAttribute("animation-mixer")) {
+                                entityA.removeAttribute("animation-mixer");
+                            }
+                            entityA.setAttribute(
+                                "animation-mixer",
+                                "loop:once; clampWhenFinished:true"
+                            );
+                            entityA.setAttribute("state", "false");
                         }
-                        entityA.setAttribute(
-                            "animation-mixer",
-                            "loop:once; clampWhenFinished:true"
-                        );
+                        
                     });
                 },
             });
@@ -50,7 +54,10 @@
 </head>
 
 <body style="margin: 0px; overflow: hidden">
-    <a-scene embedded arjs>
+    <a-scene 
+    vr-mode-ui='enabled: false'
+    embedded
+    arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
         <a-assets>
             <a-asset-items id="A1" src="./models/A1.gltf"></a-asset-items>
             <a-asset-items id="A2" src="./models/A2.gltf"></a-asset-items>
@@ -118,7 +125,7 @@
                     const entity = marker.getElementsByTagName("a-entity")[0];
                     entity.setAttribute("id", `ae${randAsset}`);
                     entity.setAttribute("gltf-model", `#${randAsset}`);
-                    console.log(entity)
+                    entity.setAttribute("state", "true");
                 });
                 marker.addEventListener("markerLost", (e) => {
                     console.log("marker is lost", marker.id);
