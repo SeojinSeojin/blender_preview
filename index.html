@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preview</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.0/dist/aframe-extras.min.js"></script>
     <script>
@@ -16,7 +16,6 @@
                     console.log(`${tag} is registered and initialized`)
                     const markerA = document.querySelector(id);
                     const entityA = markerA.getElementsByTagName("a-entity")[0];
-                    console.log(entityA)
                     entityA.addEventListener("click", function(ev, target) {
                         console.log("clicked");
                         if (entityA.hasAttribute("animation-mixer")) {
@@ -110,6 +109,7 @@
                     const entity = marker.getElementsByTagName("a-entity")[0];
                     entity.setAttribute("id", `ae${randAsset}`);
                     entity.setAttribute("gltf-model", `#${randAsset}`);
+                    console.log(entity)
                 });
                 marker.addEventListener("markerLost", (e) => {
                     console.log("marker is lost", marker.id);
