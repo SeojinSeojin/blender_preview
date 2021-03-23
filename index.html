@@ -6,75 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preview</title>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.0/dist/aframe-extras.min.js"></script>
     <script>
-        AFRAME.registerComponent('amarker', {
-            init: function() {
-                const markerA = document.querySelector("#AmarkerA");
-                const entityA = markerA.getElementsByTagName("a-entity")[0];
-                entityA.addEventListener('click', function(ev, target) {
-                    console.log("clicked");
-                    if (entityA.hasAttribute("animation-mixer")) {
-                        entityA.removeAttribute("animation-mixer");
-                    }
-                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
-                });
-            }
-        });
-        AFRAME.registerComponent('bmarker', {
-            init: function() {
-                const markerA = document.querySelector("#BmarkerB");
-                const entityA = markerA.getElementsByTagName("a-entity")[0];
-                entityA.addEventListener('click', function(ev, target) {
-                    console.log("clicked");
-                    if (entityA.hasAttribute("animation-mixer")) {
-                        entityA.removeAttribute("animation-mixer");
-                    }
-                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
-                });
-            }
-        });
-        AFRAME.registerComponent('cmarker', {
-            init: function() {
-                const markerA = document.querySelector("#CmarkerC");
-                const entityA = markerA.getElementsByTagName("a-entity")[0];
-                entityA.addEventListener('click', function(ev, target) {
-                    console.log("clicked");
-                    if (entityA.hasAttribute("animation-mixer")) {
-                        entityA.removeAttribute("animation-mixer");
-                    }
-                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
-                });
-            }
-        });
-        AFRAME.registerComponent('dmarker', {
-            init: function() {
-                const markerA = document.querySelector("#DmarkerD");
-                const entityA = markerA.getElementsByTagName("a-entity")[0];
-                entityA.addEventListener('click', function(ev, target) {
-                    console.log("clicked");
-                    if (entityA.hasAttribute("animation-mixer")) {
-                        entityA.removeAttribute("animation-mixer");
-                    }
-                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
-                });
-            }
-        });
-        AFRAME.registerComponent('fmarker', {
-            init: function() {
-                const markerA = document.querySelector("#FmarkerF");
-                const entityA = markerA.getElementsByTagName("a-entity")[0];
-                entityA.addEventListener('click', function(ev, target) {
-                    console.log("clicked");
-                    if (entityA.hasAttribute("animation-mixer")) {
-                        entityA.removeAttribute("animation-mixer");
-                    }
-                    entityA.setAttribute("animation-mixer", "loop:once; clampWhenFinished:true");
-                });
-            }
-        });
+        function registerMarker(tag, id) {
+            AFRAME.registerComponent(tag, {
+                init: function() {
+                    console.log(`${tag} is registered and initialized`)
+                    const markerA = document.querySelector(id);
+                    const entityA = markerA.getElementsByTagName("a-entity")[0];
+                    console.log(entityA)
+                    entityA.addEventListener("click", function(ev, target) {
+                        console.log("clicked");
+                        if (entityA.hasAttribute("animation-mixer")) {
+                            entityA.removeAttribute("animation-mixer");
+                        }
+                        entityA.setAttribute(
+                            "animation-mixer",
+                            "loop:once; clampWhenFinished:true"
+                        );
+                    });
+                },
+            });
+        }
+
+        const markers = [
+            ["amarker", "#AmarkerA"],
+            ["bmarker", "#BmarkerB"],
+            ["cmarker", "#CmarkerC"],
+            ["dmarker", "#DmarkerD"],
+            ["fmarker", "#FmarkerF"]
+        ]
+        markers.forEach((marker) => {
+            registerMarker(marker[0], marker[1])
+        })
     </script>
 </head>
 
@@ -126,12 +92,12 @@
     </a-scene>
     <script>
         const assets = {
-            "A": ["A1", "A2", "A3", "A4", "A5", "A6"],
-            "B": ["B1"],
-            "C": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"],
-            "D": ["D1", "D2", "D3", "D4", "D5", "D6"],
-            "E": ["E1"],
-            "F": ["F1", "F2"]
+            A: ["A1", "A2", "A3", "A4", "A5", "A6"],
+            B: ["B1"],
+            C: ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"],
+            D: ["D1", "D2", "D3", "D4", "D5", "D6"],
+            E: ["E1"],
+            F: ["F1", "F2"],
         };
         const init = () => {
             const markers = document.querySelectorAll("a-marker");
@@ -144,13 +110,13 @@
                     const entity = marker.getElementsByTagName("a-entity")[0];
                     entity.setAttribute("id", `ae${randAsset}`);
                     entity.setAttribute("gltf-model", `#${randAsset}`);
-                })
+                });
                 marker.addEventListener("markerLost", (e) => {
                     console.log("marker is lost", marker.id);
                     const entity = marker.getElementsByTagName("a-entity")[0];
                     entity.removeAttribute("id");
                     entity.removeAttribute("gltf-model");
-                })
+                });
             });
         };
         init();
