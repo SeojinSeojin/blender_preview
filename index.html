@@ -18,7 +18,6 @@
                     const entityA = markerA.getElementsByTagName("a-entity")[0];
                     entityA.addEventListener("click", function(ev, target) {
                         if (entityA.getAttribute("state") === "true") {
-                            console.log(entityA);
                             const mrID = entityA.id.slice(2, 4)
                             console.log("clicked");
                             console.log(`${mrID} is found`);
@@ -33,7 +32,7 @@
                             );
                             entityA.setAttribute("state", "false");
                         }
-                        
+
                     });
                 },
             });
@@ -45,7 +44,8 @@
             ["cmarker", "#CmarkerC"],
             ["dmarker", "#DmarkerD"],
             ["emarker", "#EmarkerE"],
-            ["fmarker", "#FmarkerF"]
+            ["fmarker", "#FmarkerF"],
+            ["gmarker", "#GmarkerG"],
         ]
         markers.forEach((marker) => {
             registerMarker(marker[0], marker[1])
@@ -54,10 +54,7 @@
 </head>
 
 <body style="margin: 0px; overflow: hidden">
-    <a-scene 
-    vr-mode-ui='enabled: false'
-    embedded
-    arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+    <a-scene vr-mode-ui='enabled: false' embedded arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
         <a-assets>
             <a-asset-items id="A1" src="./models/A1.gltf"></a-asset-items>
             <a-asset-items id="A2" src="./models/A2.gltf"></a-asset-items>
@@ -84,6 +81,10 @@
             <a-asset-items id="E1" src="./models/E1.gltf"></a-asset-items>
             <a-asset-items id="F1" src="./models/F1.gltf"></a-asset-items>
             <a-asset-items id="F2" src="./models/F2.gltf"></a-asset-items>
+            <a-asset-items id="G1" src="./models/G1.gltf"></a-asset-items>
+            <a-asset-items id="G2" src="./models/G2.gltf"></a-asset-items>
+            <a-asset-items id="G3" src="./models/G3.gltf"></a-asset-items>
+            <a-asset-items id="G4" src="./models/G4.gltf"></a-asset-items>
         </a-assets>
         <a-marker amarker id="AmarkerA" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternA.patt">
             <a-entity></a-entity>
@@ -103,6 +104,9 @@
         <a-marker fmarker id="FmarkerF" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternF.patt">
             <a-entity></a-entity>
         </a-marker>
+        <a-marker gmarker id="GmarkerG" emitevents="true" cursor="rayOrigin: mouse" preset="custom" type="pattern" url="./marker-patts/patternG.patt">
+            <a-entity></a-entity>
+        </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
     <script>
@@ -113,6 +117,7 @@
             D: ["D1", "D2", "D3", "D4", "D5", "D6"],
             E: ["E1"],
             F: ["F1", "F2"],
+            G: ["G1", "G2", "G3", "G4"]
         };
         const init = () => {
             const markers = document.querySelectorAll("a-marker");
@@ -132,6 +137,7 @@
                     const entity = marker.getElementsByTagName("a-entity")[0];
                     entity.removeAttribute("id");
                     entity.removeAttribute("gltf-model");
+                    entity.removeAttribute("state");
                 });
             });
         };
